@@ -1,0 +1,10 @@
+{
+  "name": "Voz & Cordas Studio",
+  "description": "Plataforma digital de treinamento musical para canto e violão.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

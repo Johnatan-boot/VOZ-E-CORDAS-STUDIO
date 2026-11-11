@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Georgia&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-bg: #0D1110;
+  --color-surface: #151B18;
+  --color-surface-elevated: #1D2521;
+  --color-primary: #6B8F71;
+  --color-primary-hover: #57755B;
+  --color-primary-light: #A8C7AD;
+  --color-accent: #C9A227;
+  --color-accent-light: #E2C766;
+  --color-text-primary: #F5F1E8;
+  --color-text-secondary: #A8B0AA;
+  --color-border: #303A35;
+  --color-success: #3FA66B;
+  --color-warning: #D8A83E;
+  --color-error: #D9534F;
+  --color-info: #4C9AFF;
+
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-serif: 'Georgia', serif;
+
+  /* Spacing Scale (4px to 80px) */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    word-break: break-word;
+    overflow-x: hidden;
+  }
+
+  /* Typography Hierarchy */
+  h1, .text-display { @apply font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight; }
+  h2, .text-h1 { @apply font-serif text-3xl md:text-4xl font-bold leading-tight; }
+  h3, .text-h2 { @apply font-serif text-2xl md:text-3xl font-bold leading-snug; }
+  h4, .text-h3 { @apply font-sans text-xl md:text-2xl font-semibold leading-snug; }
+  h5, .text-h4 { @apply font-sans text-lg md:text-xl font-semibold leading-normal; }
+  .text-body { @apply font-sans text-base leading-relaxed; }
+  .text-body-sm { @apply font-sans text-sm leading-relaxed; }
+  .text-caption { @apply font-sans text-xs leading-normal; }
+  /* Angular Custom Elements Default Display */
+  [id^="app-"], [class^="app-"], [class*=" app-"] {
+    /* Just in case, but let's target custom tags */
+  }
+  
+  /* Select all custom elements that start with app- */
+  app-page-header, app-card, app-badge, app-divider, app-button, app-tabs, app-progress, app-toast,
+  app-sidebar, app-header, app-mobile-nav,
+  app-dashboard-hero, app-practice-summary, app-continue-training, app-today-practice, app-quick-shortcuts,
+  app-progress-hero, app-practice-overview, app-practice-chart, app-skill-progress, app-practice-history,
+  app-profile-hero, app-profile-summary, app-musical-profile, app-musical-preferences, app-musical-goals, app-profile-edit,
+  app-vocal-pitch-trainer, app-vocal-range-tracker, app-vocal-exercise-selector,
+  app-chord-diagram, app-chord-progression, app-metronome,
+  app-tuner-display, app-tuner-meter, app-tuner-controls, app-tuner-status,
+  app-duo-hero, app-partner-card, app-duo-exercise-card, app-duo-progress, app-duo-session, app-duo-shortcuts,
+  app-streak-card, app-challenges-card, app-goals-card, app-level-card, app-achievements-grid,
+  app-course-card, app-lesson-viewer,
+  app-audio-visualizer, app-track-list, app-mixer-controls {
+    display: block;
+  }
+}
+
+@layer components {
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg;
+  }
+  .btn-primary {
+    @apply bg-primary text-bg border border-transparent hover:bg-primary-hover focus:ring-primary shadow-sm hover:shadow-md;
+  }
+  .btn-secondary {
+    @apply bg-surface-elevated text-text-primary border border-border hover:bg-surface focus:ring-text-secondary;
+  }
+  .btn-ghost {
+    @apply bg-transparent text-primary border border-primary hover:bg-primary hover:text-bg focus:ring-primary shadow-sm hover:shadow-md;
+  }
+  .btn-danger {
+    @apply bg-transparent text-error border border-error hover:bg-error hover:text-bg focus:ring-error;
+  }
+  .btn-icon {
+    @apply p-3 rounded-full flex items-center justify-center transition-colors border border-transparent cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface-elevated hover:border-border;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-surface-elevated rounded-3xl p-8 border border-border shadow-sm transition-all;
+  }
+  .card-hoverable {
+    @apply hover:border-primary hover:shadow-md cursor-pointer;
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-bold border;
+  }
+  .badge-default { @apply bg-surface border-border text-text-secondary; }
+  .badge-primary { @apply bg-primary/10 border-primary/20 text-primary; }
+  .badge-accent { @apply bg-accent/10 border-accent/20 text-accent; }
+  .badge-success { @apply bg-success/10 border-success/20 text-success; }
+  .badge-warning { @apply bg-warning/10 border-warning/20 text-warning; }
+  .badge-error { @apply bg-error/10 border-error/20 text-error; }
+
+  /* Form Elements */
+  .form-group {
+    @apply flex flex-col gap-2 w-full;
+  }
+  .input-label {
+    @apply font-sans text-[10px] uppercase tracking-widest font-bold text-text-secondary;
+  }
+  .input-field {
+    @apply bg-surface border border-border rounded-xl px-4 py-3 text-text-primary text-sm font-medium w-full transition-all focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-border;
+  }
+  .input-helper {
+    @apply font-sans text-xs leading-normal text-text-secondary;
+  }
+  .input-error {
+    @apply font-sans text-xs leading-normal text-error;
+  }
+
+  /* Divider */
+  .divider {
+    @apply w-full h-[1px] bg-border my-6;
+  }
+}
+
+@layer utilities {
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  @keyframes slideLeft {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+
+  @keyframes slideRight {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.2s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slide-left {
+    animation: slideLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slide-right {
+    animation: slideRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

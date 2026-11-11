@@ -1,0 +1,62 @@
+{
+  "collections": {
+    "users": {
+      "__description": "User profiles and account settings",
+      "__schema": {
+        "email": "string",
+        "displayName": "string",
+        "role": "string",
+        "createdAt": "timestamp"
+      },
+      "__security": {
+        "read": "request.auth != null && (request.auth.uid == documentId || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')",
+        "write": "request.auth != null && (request.auth.uid == documentId || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')"
+      }
+    },
+    "courses": {
+      "__description": "Professional video courses for Sertanejo singers",
+      "__schema": {
+        "title": "string",
+        "description": "string",
+        "thumbnailUrl": "string",
+        "instructor": "string",
+        "level": "string",
+        "tags": "array",
+        "createdAt": "timestamp"
+      },
+      "__security": {
+        "read": "request.auth != null",
+        "write": "request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'"
+      },
+      "subcollections": {
+        "modules": {
+          "__description": "Video modules within a course",
+          "__schema": {
+            "title": "string",
+            "videoUrl": "string",
+            "duration": "number",
+            "order": "number"
+          },
+          "__security": {
+            "read": "request.auth != null",
+            "write": "request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'"
+          }
+        }
+      }
+    },
+    "user_progress": {
+      "__description": "User progress for courses",
+      "__schema": {
+        "userId": "string",
+        "courseId": "string",
+        "completedModules": "array",
+        "lastWatched": "timestamp",
+        "progressPercentage": "number"
+      },
+      "__security": {
+        "read": "request.auth != null && request.auth.uid == resource.data.userId",
+        "write": "request.auth != null && request.auth.uid == request.resource.data.userId"
+      }
+    }
+  }
+}
